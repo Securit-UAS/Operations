@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secur-IT Officer Portal</title>
+  <meta name="description" content="Secur-IT Officer Portal for reports, inspections, training and operational tools." />
+  <style>
+    :root {
+      --bg: #eef4fb;
+      --bg-soft: #f8fbff;
+      --card: #ffffff;
+      --text: #16304f;
+      --text-soft: #56708f;
+      --primary: #1f5fae;
+      --primary-dark: #174984;
+      --accent: #c62839;
+      --success: #2e7d32;
+      --success-dark: #1b5e20;
+      --border: rgba(22, 48, 79, 0.10);
+      --shadow: 0 10px 30px rgba(18, 45, 79, 0.10);
+      --radius: 20px;
+      --radius-sm: 14px;
+      --max-width: 480px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(31, 95, 174, 0.12), transparent 38%),
+        linear-gradient(180deg, #f7fbff 0%, #eef4fb 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 20px 16px 32px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(145deg, #1f5fae 0%, #0f3a6c 100%);
+      border-radius: 28px;
+      padding: 22px 18px 18px;
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -40px -60px auto;
+      width: 160px;
+      height: 160px;
+      background: radial-gradient(circle, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 70%);
+      pointer-events: none;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo-wrap {
+      width: 62px;
+      height: 62px;
+      flex: 0 0 62px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.14);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255,255,255,0.22);
+      backdrop-filter: blur(6px);
+      overflow: hidden;
+    }
+
+    .logo-wrap img {
+      width: 84%;
+      height: 84%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 1.45rem;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .hero p {
+      margin: 8px 0 0;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      color: rgba(255,255,255,0.88);
+    }
+
+    .notice {
+      margin-top: 16px;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 16px;
+      padding: 12px 14px;
+      font-size: 0.88rem;
+      line-height: 1.35;
+    }
+
+    .notice strong {
+      color: #fff;
+    }
+
+    .section {
+      margin-top: 18px;
+      background: rgba(255,255,255,0.70);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 16px;
+      box-shadow: 0 8px 24px rgba(18, 45, 79, 0.06);
+      backdrop-filter: blur(6px);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .section h2 {
+      margin: 0;
+      font-size: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section .sub {
+      margin: 0;
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .priority-banner {
+      margin: 0 0 12px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(198, 40, 57, 0.10);
+      color: #9d1f2e;
+      font-size: 0.84rem;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .primary-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .button-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-radius: 20px;
+      padding: 16px;
+      min-height: 88px;
+      background: linear-gradient(135deg, #ffffff 0%, #f7fbff 100%);
+      border: 1px solid var(--border);
+      box-shadow: 0 6px 18px rgba(31, 95, 174, 0.08);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .button-card:active,
+    .button-card:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 22px rgba(31, 95, 174, 0.12);
+      border-color: rgba(31, 95, 174, 0.22);
+    }
+
+    .button-card.primary {
+      background: linear-gradient(135deg, #1f5fae 0%, #174984 100%);
+      color: #fff;
+      border-color: rgba(255,255,255,0.10);
+    }
+
+    .button-card.alert {
+      background: linear-gradient(135deg, #c62839 0%, #9d1f2e 100%);
+      color: #fff;
+      border-color: rgba(255,255,255,0.10);
+    }
+
+    .button-card.success {
+      background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+      color: #fff;
+      border-color: rgba(255,255,255,0.10);
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      flex: 0 0 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: rgba(31, 95, 174, 0.10);
+      color: var(--primary);
+    }
+
+    .button-card.primary .icon,
+    .button-card.alert .icon,
+    .button-card.success .icon {
+      background: rgba(255,255,255,0.16);
+      color: #fff;
+    }
+
+    .button-copy {
+      min-width: 0;
+    }
+
+    .button-copy h3 {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+
+    .button-copy p {
+      margin: 5px 0 0;
+      font-size: 0.84rem;
+      line-height: 1.35;
+      color: var(--text-soft);
+    }
+
+    .button-card.primary .button-copy p,
+    .button-card.alert .button-copy p,
+    .button-card.success .button-copy p {
+      color: rgba(255,255,255,0.86);
+    }
+
+    .training-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .mini-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      min-height: 68px;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .mini-link:hover,
+    .mini-link:active {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 18px rgba(18, 45, 79, 0.08);
+    }
+
+    .mini-link .mini-icon {
+      width: 38px;
+      height: 38px;
+      flex: 0 0 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: rgba(31, 95, 174, 0.10);
+      color: var(--primary);
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .mini-link strong {
+      display: block;
+      font-size: 0.93rem;
+      line-height: 1.25;
+    }
+
+    .mini-link span {
+      display: block;
+      margin-top: 3px;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      line-height: 1.35;
+    }
+
+    .footer {
+      padding: 16px 8px 6px;
+      text-align: center;
+      color: var(--text-soft);
+      font-size: 0.76rem;
+      line-height: 1.45;
+    }
+
+    .footer strong {
+      color: var(--text);
+    }
+
+    @media (min-width: 640px) {
+      .page {
+        padding-top: 28px;
+      }
+
+      .training-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="brand-row">
+        <div class="logo-wrap">
+          <img src="Logo.png" alt="Secur-IT logo" />
+        </div>
+        <div>
+          <h1>Secur-IT Officer Portal</h1>
+          <p>Reports, inspections, training and operational tools, all in one place.</p>
+        </div>
+      </div>
+
+      <div class="notice">
+        <span>ℹ️</span>
+        <div><strong>Officer Notice:</strong> Use the reporting and inspection links below for day to day operational tasks.</div>
+      </div>
+    </header>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2>Report Something</h2>
+          <p class="sub">The main operational links officers need most often</p>
+        </div>
+      </div>
+
+      <div class="priority-banner">
+        Priority reporting tools, use these first for incidents, inspections and vehicle checks.
+      </div>
+
+      <div class="primary-grid">
+        <!-- URL PLACEHOLDER: INCIDENT REPORT -->
+        <a class="button-card alert" href="PASTE_INCIDENT_REPORT_URL_HERE" target="_blank" rel="noopener noreferrer">
+          <div class="icon">!</div>
+          <div class="button-copy">
+            <h3>Incident Reporting</h3>
+            <p>Log incidents, concerns and operational issues quickly.</p>
+          </div>
+        </a>
+
+        <!-- URL PLACEHOLDER: SITE INSPECTION -->
+        <a class="button-card primary" href="PASTE_SITE_INSPECTION_URL_HERE" target="_blank" rel="noopener noreferrer">
+          <div class="icon">✓</div>
+          <div class="button-copy">
+            <h3>Site Inspections</h3>
+            <p>Complete guarding site inspections and welfare checks.</p>
+          </div>
+        </a>
+
+        <!-- URL PLACEHOLDER: VEHICLE INSPECTION -->
+        <a class="button-card success" href="PASTE_VEHICLE_INSPECTION_URL_HERE" target="_blank" rel="noopener noreferrer">
+          <div class="icon">🚗</div>
+          <div class="button-copy">
+            <h3>Vehicle Inspection</h3>
+            <p>Log vehicle inspections and damage reports.</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2>Training</h2>
+          <p class="sub">Videos, guidance and knowledge checks</p>
+        </div>
+      </div>
+
+      <div class="training-grid">
+        <!-- URL PLACEHOLDER: FILMING BY VISITORS TRAINING -->
+        <a class="mini-link" href="PASTE_FILMING_BY_VISITORS_URL_HERE" target="_blank" rel="noopener noreferrer">
+          <div class="mini-icon">🎥</div>
+          <div>
+            <strong>Unexpected Filming</strong>
+            <span>Training guidance for dealing with filming, photography and unusual interest on site.</span>
+          </div>
+        </a>
+
+        <!-- URL PLACEHOLDER: VISITOR / SOCIAL ENGINEERING TRAINING -->
+        <a class="mini-link" href="PASTE_VISITOR_SOCIAL_ENGINEERING_URL_HERE" target="_blank" rel="noopener noreferrer">
+          <div class="mini-icon">👁</div>
+          <div>
+            <strong>Visitor Concerns</strong>
+            <span>Training guidance for suspicious visitors and social engineering scenarios.</span>
+          </div>
+        </a>
+
+        <!-- URL PLACEHOLDER: DIGITAL ID CARD TRAINING -->
+        <a class="mini-link" href="PASTE_DIGITAL_ID_CARD_TRAINING_URL_HERE" target="_blank" rel="noopener noreferrer">
+          <div class="mini-icon">🪪</div>
+          <div>
+            <strong>Digital ID Card Training</strong>
+            <span>Learn the process for officer ID checks and records.</span>
+          </div>
+        </a>
+
+        <!-- URL PLACEHOLDER: INCIDENT REPORT VIDEO -->
+        <a class="mini-link" href="PASTE_INCIDENT_REPORT_VIDEO_URL_HERE" target="_blank" rel="noopener noreferrer">
+          <div class="mini-icon">▶</div>
+          <div>
+            <strong>Incident Report Video</strong>
+            <span>Step by step guide to logging incident reports.</span>
+          </div>
+        </a>
+
+        <!-- URL PLACEHOLDER: INCIDENT REPORT TEST -->
+        <a class="mini-link" href="PASTE_INCIDENT_REPORT_TEST_URL_HERE" target="_blank" rel="noopener noreferrer">
+          <div class="mini-icon">📝</div>
+          <div>
+            <strong>Incident Report Test</strong>
+            <span>Complete the knowledge check after training.</span>
+          </div>
+        </a>
+
+        <!-- URL PLACEHOLDER: CONSTRUCTION SAFETY TRAINING VIDEO -->
+        <a class="mini-link" href="PASTE_CONSTRUCTION_SAFETY_TRAINING_VIDEO_URL_HERE" target="_blank" rel="noopener noreferrer">
+          <div class="mini-icon">🏗</div>
+          <div>
+            <strong>Construction Safety Training</strong>
+            <span>Video training for officers working on construction sites.</span>
+          </div>
+        </a>
+
+        <!-- URL PLACEHOLDER: CONSTRUCTION SAFETY TEST -->
+        <a class="mini-link" href="PASTE_CONSTRUCTION_SAFETY_TEST_URL_HERE" target="_blank" rel="noopener noreferrer">
+          <div class="mini-icon">✔</div>
+          <div>
+            <strong>Construction Safety Test</strong>
+            <span>Assessment for construction site officer training.</span>
+          </div>
+        </a>
+
+        <!-- URL PLACEHOLDER: ETHICS AND COMPLIANCE TRAINING VIDEO -->
+        <a class="mini-link" href="PASTE_ETHICS_COMPLIANCE_TRAINING_VIDEO_URL_HERE" target="_blank" rel="noopener noreferrer">
+          <div class="mini-icon">⚖</div>
+          <div>
+            <strong>Ethics &amp; Compliance Training</strong>
+            <span>Guidance on conduct, standards and reporting culture.</span>
+          </div>
+        </a>
+
+        <!-- URL PLACEHOLDER: ETHICS AND COMPLIANCE TEST -->
+        <a class="mini-link" href="PASTE_ETHICS_COMPLIANCE_TEST_URL_HERE" target="_blank" rel="noopener noreferrer">
+          <div class="mini-icon">☑</div>
+          <div>
+            <strong>Ethics &amp; Compliance Test</strong>
+            <span>Knowledge check for compliance training.</span>
+          </div>
+        </a>
+
+        <!-- URL PLACEHOLDER: CHECKPOINTS AND WELFARE TRAINING VIDEO -->
+        <a class="mini-link" href="PASTE_CHECKPOINTS_WELFARE_TRAINING_VIDEO_URL_HERE" target="_blank" rel="noopener noreferrer">
+          <div class="mini-icon">📍</div>
+          <div>
+            <strong>Checkpoints &amp; Welfare Training</strong>
+            <span>Guidance on patrols, checkpoints and welfare checks.</span>
+          </div>
+        </a>
+
+        <!-- URL PLACEHOLDER: CHECKPOINTS AND WELFARE TEST -->
+        <a class="mini-link" href="PASTE_CHECKPOINTS_WELFARE_TEST_URL_HERE" target="_blank" rel="noopener noreferrer">
+          <div class="mini-icon">📋</div>
+          <div>
+            <strong>Checkpoints &amp; Welfare Test</strong>
+            <span>Complete the short assessment after training.</span>
+          </div>
+        </a>
+
+        <!-- URL PLACEHOLDER: CONFLICT RESOLUTION TRAINING -->
+        <a class="mini-link" href="PASTE_CONFLICT_RESOLUTION_TRAINING_URL_HERE" target="_blank" rel="noopener noreferrer">
+          <div class="mini-icon">🛡</div>
+          <div>
+            <strong>Conflict Resolution</strong>
+            <span>Essential skills and de-escalation refresher training.</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div><strong>Secur-IT Officer Portal</strong></div>
+      <div>Version 1.1, last updated manually by admin before publish.</div>
+      <div>Internal operational links for officers and site teams.</div>
+      <div>Replace each marked placeholder URL in the HTML before publishing.</div>
+    </footer>
+  </main>
+</body>
+</html>
